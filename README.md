@@ -1,38 +1,31 @@
-# sv
+# webRTC demo
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Group chat / one-on-one video chat app.
 
-## Creating a project
+## Using the app
 
-If you're seeing this, you've probably already done this step. Congrats!
+This app takes two or more to tango. It displays messages sent to the public chat stream on the main page. To video chat with another user, click the camera icon by their name in the chat stream. If they accept your invitation, you will both be moved to a private room and a call will begin.
 
-```bash
-# create a new project in the current directory
-npx sv create
+## Technologies
 
-# create a new project in my-app
-npx sv create my-app
-```
+### PeerJS
 
-## Developing
+WebRTC connections are facilitated with PeerJS, which abstracts most of the connection setup and allows conenctions with just an id and a few listeners. PeerJS is a long established open source product, a good solution for establishing WebRTC connections barring a need for more granular control over signaling.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+The app is currently using their free signaling server. In production, their server would be swapped out for a private signaling server, which could be as easy as deploying their open source server code. PeerJS is in no way necessary, but the abstractions over the signaling portion of the process make are great to work with until something more robust is needed.
 
-```bash
-npm run dev
+### Firestore
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Firestore realtime is great for running a chat applciation and facilitating chat invitations. The NoSQL model is great for rapid development. This could easily be swapped with Supabase as the data models are refined, or any other database and a WebSocket connection. But simple setup and quick realtime updates Firestore is hard to beat.
 
-## Building
+## ICE servers
 
-To create a production version of your app:
+This app relies on whatever ICE servers the free PeerJS server uses. For an enterprise product, this is unnaceptable. It would be best to self-host STUN and TURN servers or rely on BaaS hosts who provide them, particularly with TURN servers where their geographic proiximity is vital to low-latency connections.
 
-```bash
-npm run build
-```
+## Issues
 
-You can preview the production build with `npm run preview`.
+- There's no authentication, which is a pretty big one. Auth would be straightforward to add through Firestore but I haven't gone down that road yet.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- The public PeerJS server is a pretty big issue. None of the actual WebRTC data is routed through their sever, but the data that is routed through their is unsecured and I have no control over that server's uptime or latency or anything else.
+
+- There are many little bugs and unusual behaviors still, plus CSS problems. I decided to try Tailwind CSS for the first time on this project and it's been pretty cool but I'm still getting used to it.
