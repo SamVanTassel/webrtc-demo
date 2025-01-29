@@ -11,7 +11,7 @@
 	const closeModal = () => modal.close();
 
 	let awaitingResponse = $state(false);
-  $effect(() => {
+	$effect(() => {
 		// retrieve queries
 		const responsesCollection = collection(db, 'responses');
 		const q = query(responsesCollection, where('respondent', '==', peerUsername));
@@ -24,8 +24,8 @@
 			awaitingResponse = false;
 			deleteDoc(lastResponse.doc.ref);
 
-      goto(`/videochat/${peerUsername}`);
-		  closeModal();
+			goto(`/videochat/${peerUsername}`);
+			closeModal();
 		});
 		return unsubscribe;
 	});

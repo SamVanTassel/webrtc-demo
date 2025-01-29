@@ -24,10 +24,11 @@
 			const lastInvite = d[d.length - 1];
 			if (!lastInvite) return;
 			const data = lastInvite.doc.data();
-			if (data) inviter = {
-				username: data.inviter,
-				peerId: data.peerId
-			};
+			if (data)
+				inviter = {
+					username: data.inviter,
+					peerId: data.peerId
+				};
 			peer.setRemoteId(data.peerId);
 			inviteOpen = true;
 			deleteDoc(lastInvite.doc.ref);
@@ -37,7 +38,7 @@
 </script>
 
 {#if inviter.peerId && inviter.username && inviteOpen}
-	<ChatInviteModal peerUsername={inviter.username} isOpen={inviteOpen}/>
+	<ChatInviteModal peerUsername={inviter.username} isOpen={inviteOpen} />
 {/if}
 <div class="flex h-full flex-col items-center">
 	<ChatBox {messagesCollection} />

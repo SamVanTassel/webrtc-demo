@@ -9,9 +9,14 @@
 	let chatbox: HTMLDivElement;
 	let messages: MessageType[] = $state([]);
 
-	$effect(() => {;
+	$effect(() => {
 		// retrieve last 5 minutes of messages
-		const q = query(messagesCollection, orderBy('timestamp'), where('timestamp', '>', Date.now() - 300000), limit(100));
+		const q = query(
+			messagesCollection,
+			orderBy('timestamp'),
+			where('timestamp', '>', Date.now() - 300000),
+			limit(100)
+		);
 
 		const newMessages: MessageType[] = [];
 
@@ -34,7 +39,7 @@
 	$effect(() => {
 		messages;
 		chatbox.scrollTop = chatbox.scrollHeight;
-	})
+	});
 
 	let messageText = $state('');
 
@@ -48,11 +53,8 @@
 	};
 </script>
 
-<div class="h-4/6 w-9/12 bg-gray-700 flex flex-col">
-	<div
-		bind:this={chatbox}
-		class="m-4 w-[calc(100%-2rem)] overflow-auto rounded-lg bg-white p-4"
-	>
+<div class="flex h-4/6 w-9/12 flex-col bg-gray-700">
+	<div bind:this={chatbox} class="m-4 w-[calc(100%-2rem)] overflow-auto rounded-lg bg-white p-4">
 		{#each messages as message (message.id)}
 			<Message username={message.username} text={message.text} />
 		{/each}

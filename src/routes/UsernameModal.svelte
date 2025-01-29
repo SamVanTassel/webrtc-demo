@@ -13,8 +13,12 @@
 	});
 </script>
 
-<dialog class="h-full w-full p-0 mt-16 bg-white/30 backdrop-blur-sm flex justify-center align-middle" bind:this={element} aria-modal="true">
-	<div class="rounded-lg bg-white p-6 shadow-lg h-fit m-auto">
+<dialog
+	class="mt-16 flex h-full w-full justify-center bg-white/30 p-0 align-middle backdrop-blur-sm"
+	bind:this={element}
+	aria-modal="true"
+>
+	<div class="m-auto h-fit rounded-lg bg-white p-6 shadow-lg">
 		<h2 class="mb-4 text-lg font-semibold">Enter a username</h2>
 		<form onsubmit={saveUsername} method="dialog" class="flex">
 			<input

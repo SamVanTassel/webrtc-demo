@@ -35,7 +35,7 @@
 			if (videoOther) videoOther.srcObject = stream;
 		});
 
-		call.on('close', cleanup)
+		call.on('close', cleanup);
 	}
 
 	let peerCall = $state<MediaConnection>();
