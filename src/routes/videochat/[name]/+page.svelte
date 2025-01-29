@@ -24,6 +24,9 @@
 
 	if (conn) {
 		conn.on('call', function (call) {
+			if (!mediaManager.getLocalStream()) {
+				mediaManager.setLocalStream();
+			}
 			call.answer(mediaManager.getLocalStream());
 			peerCall = call;
 			setCallListeners(call);

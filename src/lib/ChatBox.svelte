@@ -53,8 +53,8 @@
 	};
 </script>
 
-<div class="flex h-4/6 w-9/12 flex-col bg-gray-700">
-	<div bind:this={chatbox} class="m-4 w-[calc(100%-2rem)] overflow-auto rounded-lg bg-white p-4">
+<div class="flex h-full w-9/12 flex-col bg-gray-700">
+	<div bind:this={chatbox} class="h-full m-4 w-[calc(100%-2rem)] overflow-auto rounded-lg bg-white p-4">
 		{#each messages as message (message.id)}
 			<Message username={message.username} text={message.text} />
 		{/each}
@@ -68,6 +68,7 @@
 				type="text"
 				name="text"
 				bind:value={messageText}
+				placeholder="type a message"
 			/>
 			<input type="hidden" name="username" value={user.get().name} />
 			<button type="submit" class="rounded-md bg-red-400 p-2">send</button>
