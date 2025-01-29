@@ -43,7 +43,8 @@
 
 	let messageText = $state('');
 
-	const sendMessage = async () => {
+	const sendMessage = async (e: Event) => {
+		e.preventDefault();
 		await addDoc(messagesCollection, {
 			username: user.get().name,
 			text: messageText,
@@ -61,7 +62,7 @@
 	</div>
 
 	<div class="m-4 flex w-[calc(100%-2rem)]">
-		<form class="flex w-full" onsubmit={sendMessage}>
+		<form class="flex w-full" onsubmit={(e) => sendMessage(e)}>
 			<input
 				autocomplete="off"
 				class="mr-4 w-full rounded-md p-2 text-black outline-none"
